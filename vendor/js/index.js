@@ -11,7 +11,7 @@ barUpdate = bar.data(eightyThree);
 dataNow = 0;
 barEnter = barUpdate.enter().append("div");
 
-var clear
+var dataSources = ["http://federal-budget.insidegov.com/l/86/1983", "http://federal-budget.insidegov.com/l/103/2000"];
 
 var changeData = function () {
     switch(dataNow) {
@@ -49,19 +49,25 @@ var aniTrans = function () {
 
 
 var addText = function () {
-    barEnter.text(function (d, f) {
-        return dataMeaning[f] + " " + d + " Billion USD";
+    barEnter.html(function (d, f) {
+        return dataMeaning[f] + "<br>" + d + " Billion USD";
     });
 };
 
 var changeYear = function () {
     var curYear = document.getElementById("curYear");
+    var curYearSource = d3.select("#dataSource");
     switch (dataNow) {
         case 0:
             curYear.innerHTML = "Federal Revenue - 1983";
+            curYearSource.html("Data Source of 1983 Federal Revenue");
+            curYearSource.attr("href", dataSources[0]);
             break;
         case 1:
             curYear.innerHTML = "Federal Revenue - 2000 (Scale adjusted to fit on maximized page)";
+            curYearSource.html("Data Source of 2000 Federal Revenue");
+            curYearSource.attr("href", dataSources[1]);
+            break;
     }
 };
 
